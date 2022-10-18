@@ -1,4 +1,4 @@
-package com.br.didox.API.DTO;
+package com.br.didox.API.DTOs;
 
 public class Home {
     public String getMensagem(){
