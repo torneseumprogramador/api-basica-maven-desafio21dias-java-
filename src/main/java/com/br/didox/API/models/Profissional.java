@@ -13,11 +13,14 @@ import javax.persistence.Table;
 @Table(name = "profissionais")
 public class Profissional {
 
-    public Profissional() {}
+    public Profissional() {
+        this.dataCriacao = LocalDateTime.now();
+    }
     
     public Profissional(int id, String nome) {
         this.id = id;
         this.nome = nome;
+        this.dataCriacao = LocalDateTime.now();
     }
 
     @Id
