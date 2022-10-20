@@ -4,6 +4,7 @@ import com.br.didox.API.interfaces.IObjectDTO;
 
 public class ProfissionalDTO implements IObjectDTO {
     private String nome;
+
     public String getNome() {
         return nome;
     }

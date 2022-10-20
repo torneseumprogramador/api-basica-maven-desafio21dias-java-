@@ -19,7 +19,7 @@ import com.br.didox.API.DTOs.ProfissionalDTO;
 import com.br.didox.API.DTOs.ProfissionalMinimoDTO;
 import com.br.didox.API.models.Profissional;
 import com.br.didox.API.modelview.ErroModelView;
-import com.br.didox.API.servicos.BuilderDTOModel;
+import com.br.didox.API.servicos.GenericBuilderDTOModel;
 
 @RestController
 @RequestMapping("/profissionais")
@@ -36,7 +36,7 @@ public class ProfissionaisController {
 
     @PostMapping
     public ResponseEntity<Object> criar(@RequestBody ProfissionalDTO profissionalDTO) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException, NoSuchMethodException, SecurityException{
-        var profissional = (Profissional)BuilderDTOModel.build(profissionalDTO, new Profissional());
+        var profissional = new GenericBuilderDTOModel<Profissional>(Profissional.class).build(profissionalDTO);
         repo.save(profissional);
 
         return ResponseEntity.status(201).body(profissional);
@@ -48,7 +48,7 @@ public class ProfissionaisController {
             return ResponseEntity.status(404).body(new ErroModelView("Profissional não encontrado"));
         }
 
-        var profissional = (Profissional)BuilderDTOModel.build(profissionalDTO, repo.findById(id).get());
+        var profissional = new GenericBuilderDTOModel<Profissional>(Profissional.class).build(profissionalDTO, repo.findById(id).get());
         repo.save(profissional);
         return ResponseEntity.status(200).body(profissional);
     }
@@ -59,7 +59,7 @@ public class ProfissionaisController {
             return ResponseEntity.status(404).body(new ErroModelView("Profissional não encontrado"));
         }
 
-        var profissional = (Profissional)BuilderDTOModel.build(profissionalMinimoDTO, repo.findById(id).get());
+        var profissional = new GenericBuilderDTOModel<Profissional>(Profissional.class).build(profissionalMinimoDTO, repo.findById(id).get());
         repo.save(profissional);
         return ResponseEntity.status(200).body(profissional);
     }
